@@ -9,7 +9,7 @@
 // - Filing system
 // - Genomics
 
-// Operations:
+// * ---OPERATIONS---
 // 1. put(key, value)   - inserts a new key-value pair into the table
 // 2. get(key)          - returns the value associated with a given key
 // 3. delete(key)       - removes a new pair into the table
@@ -27,7 +27,7 @@
 // - Lazy deletion: Associate the Key with null (Keys may then be removed later)
 // - Eager deletion: Key is immediately removed from the table
 
-// Properties:
+// * ---PROPERTIES---
 // 1. Both Key and Value are generic, allowing us to use any objects in their place
 //    - If <Key extends ***> then Key must be of type ***
 // 2. There CANNOT be duplicate keys (A key cannot be associated with more than one value)
@@ -36,7 +36,7 @@
 // 4. A Key's associated Value cannot be null
 //    - Because get() should return null for keys not in the table
 
-// Key equality:
+// * ---SIDE NOTE: EQUALITY---
 // - If keys are primitive: use "==" to determine equality
 // - If keys are non-primitive: Define an equals() method in object class (Pre-defined in String class)
 
@@ -80,7 +80,7 @@
 // 4. If smaller, recursively apply this method to left half of list
 // 5. Continue until element is found or all have been checked
 
-// Binary search time-complexity:
+// * ---BINARY SEARCH ANALYSIS---
 // - Average case: O(log n)
 // - Worst case: O(log n)
 
