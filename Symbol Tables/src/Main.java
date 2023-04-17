@@ -2,14 +2,14 @@
 // Symbol table (ST): A data structure for key-value pairs (ie pair: Ryan-22630945)
 // Given a key, search for the corresponding value
 
-// Applications:
+//? Applications:
 // - Dictionary
 // - Financial account
 // - Compiler
 // - Filing system
 // - Genomics
 
-// * ---OPERATIONS---
+//? Operations:
 // 1. put(key, value)   - inserts a new key-value pair into the table
 // 2. get(key)          - returns the value associated with a given key
 // 3. delete(key)       - removes a new pair into the table
@@ -17,7 +17,7 @@
 // 5. size()            - returns the no. of keys in the ST (an int)
 // 6. isEmpty()         - returns true if the table is empty
 
-// 7. keys() method:
+//? 7. keys() method:
 // - Returns Iterable<Keys> (All the keys in the symbol table)
 // - Thus, whatever you use in place of <Key> must be an iterable type.
 // - Iterable is an interface
@@ -45,10 +45,10 @@
 // - Key must be a type that implements the Comparable interface
 // - ST implements the Iterable interface (ie must implement the iterator() method)
 
-// Ordered symbol table operations:
+//? Ordered symbol table (common) operations:
 // - Like an unordered ST, implements put(), get(), delete(), contains(), isEmpty(), size() and keys()
 //
-// New operations:
+//? New operations:
 // 1. min()                 - returns the smallest Key
 // 2. max()                 - returns the largest Key
 // 3. floor(Key)            - returns the largest Key less than or equal to (Key)
@@ -63,16 +63,21 @@
 // * ---SEQUENTIAL SEARCH---
 // Search for a target element by checking each element, one by one, until a search-hit or all elements have been checked
 
-// Sequential search time-complexity
+//? Sequential search time-complexity:
 // - Average case: O(n/2)
 // - Worst case: O(n)
 
+//? Unordered linked list insert time-complexity:
+// - Average case: O(n)
+// - Worst case: O(n)
+
 // * ---BINARY SEARCH ST--- 
+// - Binary search symbol table contains an array of Keys that can be accessed using their index: select(int rank)
 // - The key difference between BinarySearchST and ST is the way in which values are searched for (using get())
 // - BinarySearchST uses the binary search algorithm in its rank() method
 // - The rank() method is then called inside the get() method
 
-// * ---BINARY SEARCH---
+// * ---BINARY SEARCH ALGORITHM---
 // Binary search algorithm:
 // 1. Begin with a sorted list of elements.
 // 2. Compare the target element with the middle element of the range
@@ -80,9 +85,14 @@
 // 4. If smaller, recursively apply this method to left half of list
 // 5. Continue until element is found or all have been checked
 
-// * ---BINARY SEARCH ANALYSIS---
+//? Binary search time-complexity:
 // - Average case: O(log n)
 // - Worst case: O(log n)
+
+//? Ordered array insert time-complexity:
+// - Average case: O(n)
+// - Worst case: O(2n)
+
 
 // * ---SIDE NOTES---
 // - Best case time-complexity for search algorithms is ALMOST ALWAYS O(1) since first-time hit is possible

@@ -72,8 +72,8 @@
 //?     [1,4]                   4
 //      / | \     BECOMES     */ \                   */ represents a red-link
 //     0  3  6                1   6
-//                               / \
-//                              0   3
+//                           / \
+//                          0   3
 //
 // (view red-link as the "glue" holding the 3-node together)
 

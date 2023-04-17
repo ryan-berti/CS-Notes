@@ -3,8 +3,8 @@
 // - Is there a data structure that can achieve this...
 
 // * ---HASH TABLES---
-// - Interpret a key as an array index
-// - We can store the value associated with Key i in a[i]
+// - Interpret index as a function (hash) of a key
+// - We can store the value associated with Key i in a[f(i)]
 // - aka 'Hash Map'
 
 // * ---HASH FUNCTIONS---
@@ -12,12 +12,12 @@
 // - ie if we have 10 key-value pairs, we need a hash function that maps any key to a value in [0,n-1]
 // - We seek a hash function that is easy to compute and uniformly distributes the keys
 //
-// Important properties:
+//? Important properties:
 // 1. Consistency
 // 2. Efficiency
 // 3. Uniform distribution of keys
 //
-// Umiform hashing ussumption:
+//? Uniform hashing assumption:
 // - The hash function UNIFORMLY and INDEPENDENTLY distributes keys among the integer values [0...M-1].
 
 
@@ -94,7 +94,7 @@
 
 // * ---HASHING WITH LINEAR PROBING---
 // - Alternatively store N key-value pairs in a hash table of size M > N, using empty entries in the table resolve collisions.
-// - Known as an "open adressing" hashing method
+// - Known as an "open addressing" hashing method
 
 //? Characterized by identifying three possible outcomes:
 // - Key EQUAL to search key: search hit
@@ -119,13 +119,13 @@
 //      2. Remove pair from hash table
 //      3. Re-hash all keys in the same cluster
 // 
-// - Upsizing:
+// - Up-sizing:
 // If the number of key-value pairs is >= half the size of the table:
 //      1. Create a new table with 2x capacity
 //      2. Re-hash all the key-value pairs.
 //
 // - Downsizing:
-// If the number of key-value pairs is <= one-eigth the size of the table:
+// If the number of key-value pairs is <= one-eighth the size of the table:
 //      1. Create a new table with 0.5x capacity
 //      2. Re-hash all the key-value pairs.
 

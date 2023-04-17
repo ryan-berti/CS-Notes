@@ -53,11 +53,11 @@
 // * ceiling(Key key)
 // The ceiling of a given key is the smallest key in the tree that is greater than the given key
 
-// * Time-complexity of binary search
+// * Time-complexity of binary tree search
 // - Average case: O(1.39 log n)
 // - Worst case: O(n)
 
-// * Inserting into BST time-complexity 
+// * Inserting into a BST array
 // - Average case: O(1.39 log n)
 // - Worst case: O(n)
 
