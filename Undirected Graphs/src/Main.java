@@ -1,32 +1,50 @@
+// ! NB
 // * ---TERMINOLOGY---
-// - Self-loop
-// - Parallel edges
-// - Degree of a vertex
-// - Path
-// - Cycle
-// - Tree
-// - Subtree
+// - Vertex: ???
+// - Self-loop: an edge that connects a vertex to itself
+// - Parallel edges: 2 edges that connect the same pair of vertices
+// - Acyclic: A graph with no cycles
+// - Tree: an acyclic connected graph
+// - Connected components: Maximal connected subgraph
+// - Subgraph: a subset of a graph’s edges that constitutes the graph
+// - Adjacency: when there is an edge connecting two vertices
+// - Degree of a vertex: the number of edges incident to a vertex
+// - Path: a sequence of vertices connected by edges
+// - Forest: a disjoint set of trees
+//
+// - Bipartite: a graph whose vertices we can divide into two sets such that all
+// edges connect a vertex in one set with a vertex in the other set.
+//
+// - Cycle: a path with at least one edge whose first and last
+// vertices are the same
+//
+// - Spanning tree: a subgraph that contains all the graph’s vertices and is a
+// single tree
+//
+// - Density: the proportion of possible pairs of vertices that are connected by
+// edges.
 
 // * ---GRAPH DATA TYPE---
 
 // ? Attributes:
 // - int V: no. of vertices
 // - int E: no. of edges
-// - Bag<Integer>[] adj: Bag of adjacent vertices ?!?!?!
+// - Bag<Integer>[] adj: Bags of adjacent vertices
 
+// ! NB
 // ? Constructors:
 // - Graph(int V)
 // - Graph(In in)
 
+// ! NB
 // ? Methods:
-// ! EXPLAIN METHODS
 // ---SIDE NOTE--- Some of these are additional methods from pg523 in textbook
 //
-// - int degrees(int V)
-// - int maxDegree()
-// - int avgDegree()
-// - int numberOfSelfLoops()
-// - String toString()
+// - int degrees(int V): Returns the number of degrees of V
+// - int maxDegree(): Returns the maximum degree of the graph
+// - int avgDegree(): Returns 2 * G.E() / G.V().
+// - int numberOfSelfLoops(): Count self-loops, returns count/2
+// - String toString(): Returns the string representation of the graph
 //
 // Operations to consider:
 // - Adding a vertex
@@ -43,8 +61,9 @@
 
 // * ---ADJACENCY-LISTS DATA STRUCTURE---
 
-// ? ARRAY OF LINKED-LISTS !!
+// ? ARRAY OF LINKED-LISTS
 
+// ! NB
 // ? Performance:
 // - Space complexity: S(E + V)
 // - Add edge v-w: O(1)
@@ -70,7 +89,6 @@
 // 1. Mark it as visited
 // 2. Recursively visit non-visited vertices that are adjacent to it
 //
-// - Imagine graph is constructed using only one-way edges (1 in each direction)
 // - Order in which vertices/edges are examined depends on input order.
 
 // ? private void dfs(Graph G, int v):
@@ -127,6 +145,8 @@
 // ? ---SIDE NOTE---
 // public Iterable<Integer> pathTo(int v) for BFS is the SAME as DFS method
 
+// ! LEARN: public class CC
+
 // * ---USING DFS TO FIND CONNECTED COMPONENTS---
 // - Involves exploring the graph in a depth-first manner, marking the visited
 // nodes, and assigning them to connected components.
@@ -140,32 +160,3 @@
 // 3. Iterate through all adjacent vertices w of the current vertex v
 // 4. If an adjacent vertex w is not visited, call dfs() recursively with w
 // 5. When dfs() returns, backtrack and continue exploring other adjacent nodes
-
-// * ---SYMBOL GRAPH DATA TYPE---
-
-// ? Input format:
-// - Vertex names are Strings
-// - A specified delimiter separates vertex names
-//
-// - Each line represents a set of edges, connecting the first vertex name on
-// the line to each of the other vertices named on the line
-//
-// - The number of vertices V and the number of edges E are implicitly defined
-
-// ? Attributes:
-// ST<String, Integer> st: Maps vertex names to unique integer indices.
-// String[] keys: Array of vertex names (at correct index)
-// Graph G: Underlying graph structure that uses adjacency lists
-
-// ? Methods:
-// - SymbolGraph(String stream, String sp): Initializes a graph from a file with
-// a delimiter.
-//
-// - public boolean contains(String s): Checks if graph contains vertex "s"
-// - public int index(String s) : Returns the index associated with vertex "s"
-// - public String name(int v): Returns the name associated with an index
-// - public Graph G(): Returns the underlying undirected graph
-
-// ? Degrees of separation:
-// - A concept used to measure the social distance between two individuals in a
-// network (shortest path)
