@@ -1,15 +1,16 @@
-// * ---INTRODUCTION---
-// - A minimum spanning tree (MST) of an edge-weighted graph is a spanning tree
-// whose weight (the sum of the weights of its edges) is no larger than the
-// weight of any other spanning tree
+// * ---DEFINITIONS---
+// - Spanning tree: a connected subgraph with no cycles that includes all of the
+// vertices.
 //
-// - A spanning tree of a graph is a connected subgraph with no cycles that
-// includes all the vertices.
+// - MST: a spanning tree whose weight is no larger than the weight of any other
+// spanning tree.
+//
+// - Edge weighted graph: graph model where we associate weights/costs with each
+// edge
 
 // ? Basic properties of a (normal) tree:
 // 1. Adding an edge between two vertices creates a unique cycle
 // 2. Removing an edge breaks the tree into 2 separate sub-trees
-//
 
 // ? Assumptions:
 // 1. The graph is connected
@@ -17,6 +18,7 @@
 // 3. Edge weights may be 0 or negative
 // 4. Edge weights are all unique
 
+// ! NB
 // ? Cut property:
 // - A cut is a partition of a graph's vertices into two nonempty disjoint sets
 // - A crossing edge of a cut is an edge that connects two sets
@@ -127,27 +129,3 @@
 // update edgeTo[w] distTo[w] and priority queue
 //
 // 3. Once the loop terminates, the MST is formed
-
-// * ---KRUSKAL'S ALGORITHM---
-
-// ? Algorithm steps:
-// 1. Create a MinPQ pq and add all the edges from Graph G
-//
-// 2. Initialize a union-find (UF) data type to keep track of connected
-// components
-//
-// 3. Initialize a Queue mst to store the edges of the MST
-// 4. While the MinPQ is not empty and the MST has less than G.V() - 1 edges:
-// 4a. Remove the edge with the smallest weight from the MinPQ.
-//
-// 4b. Check if the two vertices connected by the edge are in the same connected
-// component using the union-find data structure uf.
-//
-// 4c. If they are not connected (i.e., adding the edge won't create a cycle),
-// add the edge to the MST, update the MST's total weight, and merge the
-// connected components in the union-find data structure.
-//
-// 5. After processing all edges, return the MST edges using the edges() method
-// and the total weight of the MST using the weight() method.
-
-// ! PRIM AND KRUSKAL PERFORMANCE
