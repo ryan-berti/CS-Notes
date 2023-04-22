@@ -1,6 +1,5 @@
 // ! NB
 // * ---TERMINOLOGY---
-// - Vertex: ???
 // - Self-loop: an edge that connects a vertex to itself
 // - Parallel edges: 2 edges that connect the same pair of vertices
 // - Acyclic: A graph with no cycles
