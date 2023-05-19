@@ -60,8 +60,6 @@
 
 // * ---ADJACENCY-LISTS DATA STRUCTURE---
 
-// ? ARRAY OF LINKED-LISTS
-
 // ! NB
 // ? Performance:
 // - Space complexity: S(E + V)

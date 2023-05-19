@@ -1,0 +1,11 @@
+{
+    "java.project.sourcePaths": [
+        "src"
+    ],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Users\\ryanb\\OneDrive\\Documents\\Programming\\Java\\Libraries\\algs4.jar",
+        "c:\\Users\\ryanb\\OneDrive\\Documents\\Programming\\Java\\Libraries\\stdlib.jar"
+    ]
+}
