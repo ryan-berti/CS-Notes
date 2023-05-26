@@ -1,6 +1,8 @@
 // * ---REGULAR EXPRESSIONS (REs)---
 // - A regular expression (regex) is a sequence of characters that forms a
 // search pattern.
+//
+// - A notation to specify a set of set of Strings
 
 // ? Terminology:
 // - Language: A set (possibly infinite) of strings
@@ -11,19 +13,18 @@
 // ? Operations:
 //
 // 1. Concatenation:
+// - Operation allows us to join strings.
 //
 // - AB: The language {AB}, consisting only of the string formed by
 // concatenating A and B.
 //
-// - ie Operation allows us to join strings.
-//
 // 2. Or:
+// - Operation allows us to specify alternatives
 // - A|E|I|O|U: The language {A,E,I,O,U}
-// - ie Operation allows us to specify alternatives
 //
 // 3. Closure:
+// - Operation allows parts of pattern to be repeated arbitrarily (or 0 times)
 // - A(B)*: The language {A,AB,ABB,ABBB,ABBBB...}
-// - ie Operation allows parts of the pattern to be repeated arbitrarily.
 
 // ? Definition - An RE is either:
 // - Empty
@@ -91,7 +92,7 @@
 // state for a given possible input. It is "non-deterministic" because it's not
 // always certain which state the automaton will move to for a given input.
 //
-// - ie An NFA can exist in multiple states at once.
+// - ie An NFA can exist in multiple states at once (Schrödinger...)
 
 // ? Characteristics of regex NFA:
 //
@@ -99,11 +100,12 @@
 // pattern character, starts at state 0, and has a (virtual) accept state M.
 //
 // - States corresponding to a alphabet character have an outgoing (black) edge
-// that goes to the state corresponding to the next character in the pattern.
-//
+// that goes to the state corresponding to the next character in the pattern (ie
+// change state and scan to next text char)
 //
 // - States corresponding to the meta-characters have at least one outgoing
-// (red) edge, which may go to any other state.
+// (red) edge, which may go to any other state (ie change state but don't scan
+// more text)
 //
 // - Some states have multiple outgoing edges, but no state has more than one
 // outgoing black edge.
@@ -189,6 +191,27 @@
 // 2d. If character is "(" OR "*" OR ")":
 // - Add ε-transition from CURRENT position (i) to NEXT position (i+1)
 
-// ! finish (pg 799)
-// ? recognizes(String txt):
+// ? Method - public boolean recognizes(String txt):
 //
+// 1. Initialization:
+// - Bag<Integer> pc = new Bag<Integer>()
+// - DirectedDFS dfs = new DirectedDFS(G, 0)
+// - Add all states reachable from the start state to pc.
+//
+// 2. Iterate over characters in txt:
+// - for (int i = 0; i < txt.length(); i++)
+//
+// 2a. Compute possible NFA states for txt[i+1]:
+// - Bag<Integer> match = new Bag<Integer>()
+//
+// - For each state in pc, if the state has a transition on txt[i] or '.', add
+// the next state to match.
+//
+// 2b. Update possible states:
+// - pc = new Bag<Integer>()
+// - dfs = new DirectedDFS(G, match)
+// - Add all states reachable from any state in match to pc.
+//
+// 3. Check for acceptance:
+// - If any state in pc is an accept state, return true.
+// - If no accept state is reachable, return false.

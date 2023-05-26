@@ -35,10 +35,17 @@
 //
 // - void close(): Closes the bit-stream.
 
-// ! write definition point
-// ! notes on BinaryDump class
 // ? Binary dumps:
+// - The process of translating a bit-stream into a more "human readable" binary
+// format (but still BINARY)
 //
+// - ie If B = 0111001000001111 and width = 4. BinaryDump output:
+//
+// 0111
+// 0010
+// 0000
+// 1111
+// 16 bits
 
 // ? Limitations:
 //
@@ -60,15 +67,14 @@
 // - Used to compress bit-streams.
 //
 // - The simplest type of redundancy in a bit-stream is long runs of repeated
-// bits (ie 0000000111111110000000)
-//
-// - Run length encoding takes advantage of this redundancy for data compression
-
-// ! finish
-// ? Bitmaps
-//
+// bits (ie 0000000111111110000000). Run length encoding takes advantage of this
+// for data compression
 
 // ? void compress()
+//
+// NOTE:
+// - Run-lengths are stored using 8-bits
+// - The algorithm assumes that the bit-stream starts with 0's
 //
 // 1. Initialize variables:
 // - char cnt = 0 -> Used to store run-length (int is cast into a char)
@@ -98,15 +104,35 @@
 // - Write the (new) value of cnt to BinaryStdOut AGAIN
 // - Increment count by 1: cnt++
 
-// ! finish
-// ? void expand():
+// ? void expand()
 //
+// 1. Initialize variables:
+// - boolean b = false -> Used to store the current bit (true = 1, false = 0)
+// - ie Start with 0's
+//
+// 2. Start a loop that will continue until BinaryStdIn is empty:
+// - while (!BinaryStdIn.isEmpty())
+//
+// 2a. Read the (current) run-length from BinaryStdIn:
+// - cnt = BinaryStdIn.readChar();
+//
+// 2b. Write out the current bit (b) cnt number of times:
+// - for (int i = 0; i < cnt; i++) BinaryStdOut.write(b);
+//
+// 2c. Flip the current bit:
+// - b = !b;
+//
+// 3. Close BinaryStdOut once all the input has been read and processed:
+// - BinaryStdOut.close();
 
 // * ---HUFFMAN COMPRESSION---
 // - Used to compress any text.
 //
 // - Huffman compression is based on the idea that we can save bits by encoding
 // frequently used characters with fewer bits than rarely used characters.
+//
+// - With run-length encoding, each code was of fixed length (8-bits). Huffman
+// compression allows codes to be different (variable) lengths
 //
 // General process:
 // 1. Choose a code (bit-string) to associate with each character.
@@ -242,7 +268,7 @@
 // 5. Write trie for decoder:
 // - writeTrie(root)
 //
-// 6. Print no. of characters:
+// 6. Write no. of characters:
 // - BinaryStdOut.write(input.length)
 //
 // 7. Write Huffman code to BinaryStdOut:
@@ -253,9 +279,32 @@
 // 8. Close BinaryStdOut:
 // - BinaryStdOut.close()
 
-// ! finish
 // ? expand():
 //
+// 1. Read in the Huffman trie:
+// - Node root = readTrie()
+//
+// 2. Store the no. of characters:
+// - int N = BinaryStdIn.readInt()
+//
+// 3. For each character i in the encoded message (length N)
+// - for (int i = 0; i < N; i++)
+//
+// 3a. Set the root of the trie as the current node
+// - Node x = root
+//
+// 3b. While the current node is not a leaf node:
+// - while (!x.isLeaf())
+//
+// 3bi. If the next bit is 1, move to the right child:
+// - if (BinaryStdIn.readBoolean()) x = x.right
+// - else x = x.left
+//
+// 3c. Write the character associated with the leaf node to the standard output:
+// - BinaryStdOut.write(x.ch)
+//
+// 4. Close BinaryStdOut:
+// - BinaryStdOut.close()
 
 // * ---LZW COMPRESSION---
 // - Used to compress any text.
@@ -278,8 +327,6 @@
 // - LZW compression is a dictionary-based method that replaces strings of
 // characters with single codes.
 
-// ? Codeword table:
-
 // ? LZW tries:
 //
 // 1. Nodes:
@@ -301,7 +348,6 @@
 //
 // - This is done by traversing the trie from the root, matching node labels
 // with input characters.
-//
 
 // * ---LZW DATA STRUCTURE---
 

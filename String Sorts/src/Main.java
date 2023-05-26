@@ -1,19 +1,24 @@
 // * ---SPECIAL ALGORITHMIC PROPERTIES OF STRINGS---
 //
-// 1. Can be seen as sequences from specific alphabets (ie ASCII)
+// 1. Can be seen as sequences from specific alphabets - ie ASCII
 // - Allows for more efficient processing & data representation
 //
-// 2. Character access and length determination have a time complexity of O(1)
+// 2. length(), charAt() and substring() have a time complexity of O(1)
+// - While concat() has a time complexity of O(N).
 //
 // 3. Immutability
 // - Allows for safe use in assignment statements and arguments/return values
 // from methods without worrying about their values changing.
 
-// * ---SIDE NOTE: STABLE VS NON-STABLE---
+// * ---SIDE NOTE: STABLE VS NON-STABLE ALGORITHM---
 // - A sorting algorithm is STABLE if two objects with equal keys appear in the
 // same order in the sorted output as they appear in the input to be sorted.
 //
 // - If the input order is not preserved, the sorting algorithm is UNSTABLE.
+
+// * ---SIDE NOTE: IN-PLACE ALGORITHM---
+// - An in-place algorithm is one that requires a constant amount of extra
+// memory to operate, regardless of the size of the input.
 
 // * ---KEY INDEXED COUNTING---
 // - Particularly efficient for sorting when keys are small integers
@@ -23,13 +28,22 @@
 // 2. Transform counts to indices
 // 3. Distribute the data
 // 4. Copy back
+//
+// - At the end of the sorting process:
+// 1. Keys will be in ascending order
+// 2. Same-value keys remain in their original (relative) order
+// - ie Stable sorting algorithm
+
+// ? Keys and values:
+// - Keys are integers between 0 and R-1.
+// - Their associated values are Strings (of an arbitrary length)
 
 // ? Compute frequency counts:
-// - Calculate the frequency of each key using count[]
+// - Calculate the frequency of each key and store it in count[]
 //
 // - for (i = 0; i < N; i++) count[a[i].key() + 1]++;
 //
-// - If the key value is r, we increment count[r+1] (where r is the key value)
+// - If the key value is r, we increment count[r+1]
 //
 // - count[0] = 0 (always) so that we can handle all keys uniformly in a loop:
 // count[r] is always the sum of count[0,1,2...r-1], EVEN WHEN r = 1
@@ -51,6 +65,9 @@
 // its key in count[]
 //
 // - for (int i = 0; i < N; i++) aux[count[a[i].key()]++] = a[i];
+//
+// - count[a[i].key()]++ is used so that Strings with the same value are not
+// stored in the same index.
 
 // ? Copy back:
 // - Copy the sorted data from the auxiliary array back to the original array.
@@ -60,10 +77,25 @@
 // * ---LSD STRING SORTS---
 // - LSD: least-significant-digit first
 //
+// - Uses key-indexed counting where String.charAt(d) is the key for each input
+// String (during each iteration of d).
+//
 // - Designed to sort strings of equal length, but alterations can be made
 // (ie pad shorter strings with "smallest" character
+//
+// - The output of LSD sort is sorted according to beginning chars of Strings
+// (ie prefixes). Don't let "least significant" confuse you.
 
-// ? Stability:
+// ? General process:
+// 1. Sort strings based on their LAST character
+// 2. Iteratively sort on the next character (right to left)
+//
+// 3. Continue until all characters have been "scanned":
+//
+// - Once sorting has taken place based on every character, the algorithm
+// terminates
+
+// ? Performance and stability:
 // - LSD string-sort STABLY sorts fixed-length strings.
 // - Uses ~ 7WN + 3WR array accesses
 //
@@ -109,6 +141,16 @@
 // character, then RECURSIVELY sort the sub-arrays corresponding to each
 // character, excluding the 1st character (since it is the same for each string
 // in each sub-array).
+
+// ? General process:
+// 1. Sort strings based on their 1st character
+//
+// 2. Recursively sort Strings with equal keys (characters)
+// - This is done by dividing the array into sub-arrays
+//
+// 3. Base case:
+// - Return when we have scanned all the characters of the sub-array strings or
+// when a sub-array contains only one string.
 
 // ? End of string convention:
 // - Sub-arrays for strings whose characters have all been examined should

@@ -6,8 +6,10 @@
 // * ---BRUTE FORCE SUBSTRING SEARCH---
 
 // ? Algorithm:
-// 1. Use a for-loop to iterate from i = 0 to i = N-M
-// 1a. Use a nested loop to iterate from j = 0 to j = M-1
+//
+// 1. Use a for-loop to iterate from i = 0 to i = N-M:
+//
+// 1a. Use a nested loop to iterate from j = 0 to j = M-1:
 //
 // 1ai. Check if jth char of PATTERN is equal to i+jth char of TEXT, if not:
 // break nested loop.
@@ -31,6 +33,12 @@
 // sometimes increment by 2,3,4...
 //
 // - Other than the mismatch "trick", KMP is relatively similar to brute force.
+//
+// - General process:
+// 1. Construct a DFA using the given pattern String
+// 2. Simulate the DFA using the given text String
+// 2a. If the DFA is in the accept state, return the start index of the pattern.
+// 3. If the DFA is NOT in the accept state after simulation, return N
 
 // ? Attributes:
 // - private String pat
@@ -79,11 +87,22 @@
 
 // ? KMP search():
 //
-// - SIMILAR to brute-force search, but we NO LONGER iterate over the pattern
-// characters using a for(j) loop. We simply use j = dfa[txt.charAt(i)][j]
+// 1. Initialize variables:
+// - int N = txt.length();
+// - int M = pat.length();
+// - int i, j;
 //
-// - The removal of the double for-loop from the brute-force approach
-// significantly improves the search performance.
+// 2. Iterate over text and pattern:
+// - for (i = 0, j = 0; i < N && j < M; i++)
+// - Change DFA states using: j = dfa[txt.charAt(i)][j]
+//
+// 2a. If j = M:
+// - The for-loop will break (because j must be less than M)
+// - Return i-M (the start index of the pattern)
+//
+// 2b. If for loop does not break:
+// - All the text has been "scanned"
+// - Return N (search miss!)
 
 // ? Performance:
 // - Worst case: accesses no more than M + N characters to search for a pattern
@@ -92,6 +111,8 @@
 // * ---BOYER MOORE SEARCH DATA STRUCTURE---
 // - When a mismatch is detected, the Boyer-Moore algorithm uses the Mismatched
 // character heuristic to enhance efficiency.
+//
+// - Similar to KMP in the sense that it is optimized to not "re-scan" text
 
 // ? Mismatched character heuristic:
 //
@@ -99,8 +120,8 @@
 // moved past the mismatched character in the text.
 //
 // 2. If the mismatched character is present, the pattern is shifted so that the
-// mismatched character in the text aligns with the last (rightmost) occurrence
-// of the same character in the pattern.
+// mismatched character in the text aligns with the last (rightmost)
+// occurrence of the same character in the PATTERN.
 
 // ? Attributes:
 // 1. private String pat
@@ -183,3 +204,15 @@
 // - if (i && ii) return i - M + 1 (search hit!)
 //
 // 4. If for(i) loop does not return, return N (search miss)
+
+// ? Monte Carlo algorithms:
+// 1. Guaranteed running time (known)
+// 2. May occasionally produce incorrect results
+// 3. Error probability can be reduced by running algorithm multiple times
+// 4. They are typically used when speed is a priority
+
+// ? Las Vegas algorithms:
+// 1. Variable running time
+// 2. Always produce correct results (zero error probability)
+// 3. Expected running time is usually bounded
+// 4. They are typically used when correctness is a priority

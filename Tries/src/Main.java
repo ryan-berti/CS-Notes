@@ -1,8 +1,8 @@
-// * ---TRIE DATA STRUCTURE: TrieST<Value>---
+// * ---(R-WAY) TRIE DATA STRUCTURE: TrieST<Value>---
 // - A trie is a type of tree data structure containing Nodes (technically only
 // the root Node, which has links to other nodes)
-//
-// Definition:
+
+// ? Definition:
 // - A data structure built from the characters of the string keys that allows
 // us to use the characters of the search key to guide the search.
 
@@ -57,7 +57,7 @@
 // ? Basic properties:
 //
 // 1. Nodes and Links:
-// - Tries are made up of nodes, where each node holds an array of links.
+// - Tries are made up of nodes, each node holds an array of links (of size R).
 // - Links can either be null or references to other nodes.
 // - Every node has precisely one parent node (root Node has none).
 // - Each node possesses R links, where R is the size of the alphabet.
@@ -68,12 +68,15 @@
 // - Unlike other nodes, it doesn't correspond to any character value since no
 // link points to it.
 //
-// 3. Character Value:
+// 3. Character value:
 // - Links within a node correspond to character values.
 // - Each link points to one distinct node.
 //
-// - Nodes are labelled with character values that correspond to the links
-// pointing to them.
+// - Characters are not stored directly, the characters rather indexed in the
+// links array using their ASCII value.
+//
+// - Nodes are "labelled" (but not directly stored) with character values that
+// correspond to the links pointing to them.
 //
 // 4. Node Values:
 // - Every node in a trie holds a value.
@@ -90,9 +93,13 @@
 //
 // - Such nodes don't correspond to keys and often represent the end of a string
 // key in the trie.
+// - ie leaf nodes
 //
 // 6. Null Links:
 // - Tries frequently contain a large number of null links.
+//
+// - A null link represents a character that does not appear as a subsequent
+// character at a specific position in any of the keys in the Trie
 //
 // - When visualizing a trie, these null links are typically omitted for the
 // sake of simplicity.
@@ -104,8 +111,8 @@
 // - If a link that corresponds to a character doesn't exist, the search
 // concludes that the key isn't present in the trie.
 
-// ? Searching:
-// - Return the value of a given string Key using get() method
+// ? Searching - get():
+// - Return the value of a given string Key using the RECURSIVE get() method
 //
 // Process:
 //
@@ -119,14 +126,14 @@
 // key "sea", you'd first follow the link for 's', then the link for 'e', and
 // finally the link for 'a'.
 //
-// 3. Check for search termination:
+// 3. Check for search termination (after each "recursive iteration" of int d):
 //
 // 3a. Search hit:
 // - If you've followed all the characters in your key and the node you've
 // arrived at has a non-null value, the search is a hit. The value associated
 // with the key is the value in the node corresponding to its last character.
 //
-// 3b. Search miss due to null value:
+// 3b. Search miss due to null value (leaf node):
 // - If you've followed all the characters in your key and the node you've
 // arrived at has a null value, the search is a miss. The key is not present in
 // the trie.
@@ -136,7 +143,7 @@
 // (i.e., there is no link corresponding to the next character in your key), the
 // search is a miss. The key is not present in the trie.
 
-// ? Insertion:
+// ? Insertion - put():
 // - Insert a string Key (and its associated value) using put() method
 //
 // Process:
@@ -162,6 +169,7 @@
 //
 // - In this case, create nodes for each of the characters in the key not yet
 // encountered.
+//
 // - The value in the last node created is set to the value to be associated
 // with the key.
 //
@@ -179,7 +187,7 @@
 // - This ensures that the entire key is represented in the trie following the
 // insertion.
 
-// ? Deletion:
+// ? Deletion - delete():
 //
 // Process:
 //
@@ -220,14 +228,33 @@
 // - A TST is a data structure containing nodes, each node in a TST contains a
 // character, three pointers (left, middle, and right) representing subtrees,
 // and a value.
+//
+// - On the other hand, in a TRIE data structure, each node contains 256 links -
+// this is a huge waste of space if there are a large no. of null links.
+
+// ? TST vs Trie:
+//
+// 1. Links:
+// - Each node in a TST contains exactly 3 links
+// - Each node in a Trie contains 256 links (for extended ASCII)
+//
+// 2. Nodes:
+// - Nodes in a TST contain a character, a value and 3 Nodes (Each a subtree)
+// - Nodes in a Trie contain a value and an array of Nodes (links)
+//
+// 3. Root node:
+// - The root node in a TST contains a character (ie it is NOT "blank")
+//
+// - The root node of a Trie is "blank" (since the character of a node is
+// represented by its incoming link; and the root node has none)
 
 // ? Attributes:
 // - private Node root
 
 // ? private class Node:
-// char c
-// Node left, mid, right
-// Value val
+// - char c
+// - Node left, mid, right
+// - Value val
 
 // ? Searching:
 // - Return the value of a given string Key using get() method
